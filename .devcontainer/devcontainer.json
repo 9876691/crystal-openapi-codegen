@@ -1,0 +1,12 @@
+{
+    "name": "Codegen",
+    "dockerComposeFile": "docker-compose.yml",
+	"service": "codegen",
+    "workspaceFolder": "/codegen",
+    "extensions": [
+        "faustinoaq.crystal-lang",
+        "editorconfig.editorconfig"
+    ],
+    "runArgs": [
+    ]
+}
