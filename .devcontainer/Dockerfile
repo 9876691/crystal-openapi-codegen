@@ -66,13 +66,8 @@ COPY . .
 # Install shards
 RUN shards install
 
-# Build all the node packages
-RUN yarn --pure-lockfile
-
-RUN npm run prod
-
 # Build the app
-RUN crystal build src/onchain.cr --release --no-debug -o app
+RUN crystal build src/codegen.cr --release --no-debug -o app
 
 # ,------.                     ,--.                   ,--.   ,--.                  
 # |  .--. ' ,--.--.  ,---.   ,-|  | ,--.,--.  ,---. ,-'  '-. `--'  ,---.  ,--,--,  
@@ -86,11 +81,5 @@ WORKDIR /data
 
 COPY --from=production-build app .
 
-COPY --from=production-build /usr/local/bin/lucky .
-
-COPY --from=production-build public ./public
-
-ENV LUCKY_ENV production
-
 # And now run it.
-CMD (./lucky db.migrate &) && ./app
+ENTRYPOINT ["/data/app"]
